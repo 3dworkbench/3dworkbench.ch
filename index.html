@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>3DWORKBENCH — Juri Pranjic</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Barlow+Condensed:wght@300;400;600;700;800;900&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+/* ── INDEX-SPECIFIC ─────────────────────────────── */
+
+/* HERO */
+.hero {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  padding: 120px 48px 80px;
+  gap: 48px;
+  position: relative;
+  overflow: hidden;
+}
+.hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 70% 50%, rgba(192,192,192,0.04) 0%, transparent 65%);
+  pointer-events: none;
+}
+.hero-ghost {
+  position: absolute;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: 26vw;
+  color: rgba(255,255,255,0.018);
+  right: -1vw; top: 50%;
+  transform: translateY(-50%);
+  letter-spacing: -0.05em;
+  line-height: 1;
+  pointer-events: none;
+  user-select: none;
+}
+.hero-title { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: clamp(54px, 7.5vw, 104px); line-height: 0.88; letter-spacing: -0.025em; text-transform: uppercase; margin-bottom: 28px; }
+.hero-title em { color: var(--silver); font-style: normal; display: block; }
+.hero-sub { font-family: 'Lora', serif; font-size: 15.5px; color: var(--gray); line-height: 1.75; max-width: 400px; margin-bottom: 40px; }
+.hero-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+
+/* STATS */
+.stats { display: grid; grid-template-columns: repeat(4,1fr); border-top: 0.5px solid var(--divider); border-bottom: 0.5px solid var(--divider); background: var(--surface); }
+.stat { padding: 30px 48px; border-right: 0.5px solid var(--divider); }
+.stat:last-child { border-right: none; }
+.stat-val { font-family: 'Barlow Condensed', sans-serif; font-size: 38px; font-weight: 800; color: var(--white); letter-spacing: -0.02em; line-height: 1; }
+.stat-label { font-family: 'Space Mono', monospace; font-size: 8.5px; color: var(--gray); letter-spacing: 0.15em; text-transform: uppercase; margin-top: 5px; }
+
+/* GUIDE PREVIEW */
+.guide-preview { background: var(--cream); padding: 100px 48px; }
+.guide-inner { display: grid; grid-template-columns: 400px 1fr; gap: 80px; align-items: center; }
+.guide-cover {
+  background: var(--ink);
+  border-radius: 12px;
+  aspect-ratio: 3/4;
+  display: flex; flex-direction: column;
+  justify-content: space-between;
+  padding: 32px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 40px 100px rgba(0,0,0,0.25);
+}
+.guide-cover-num {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 140px; font-weight: 900;
+  color: rgba(255,255,255,0.04);
+  position: absolute;
+  right: -10px; bottom: -20px;
+  line-height: 1;
+  letter-spacing: -0.05em;
+}
+.guide-cover-title { font-family: 'Barlow Condensed', sans-serif; font-size: 36px; font-weight: 900; color: var(--white); line-height: 0.95; letter-spacing: -0.02em; text-transform: uppercase; position: relative; }
+.guide-cover-title em { color: var(--silver); font-style: normal; display: block; }
+.guide-cover-bottom { position: relative; }
+.guide-cover-tag { display: inline-block; background: var(--silver); color: var(--ink); font-family: 'Space Mono', monospace; font-size: 7.5px; font-weight: 700; letter-spacing: 0.15em; padding: 4px 10px; border-radius: 2px; margin-bottom: 8px; }
+.guide-cover-sub { font-family: 'Space Mono', monospace; font-size: 8.5px; color: var(--gray); letter-spacing: 0.08em; }
+
+.guide-content .display { margin-bottom: 20px; }
+.guide-content .body-text { margin-bottom: 36px; }
+.hack-list { display: flex; flex-direction: column; margin-bottom: 40px; border-top: 0.5px solid var(--divider-light); }
+.hack-row { display: flex; align-items: center; gap: 20px; padding: 13px 0; border-bottom: 0.5px solid var(--divider-light); }
+.hack-row-num { font-family: 'Space Mono', monospace; font-size: 10px; color: #AAA; min-width: 24px; }
+.hack-row-name { font-family: 'Barlow Condensed', sans-serif; font-size: 17px; font-weight: 700; color: var(--ink); letter-spacing: 0.02em; }
+.hack-row-tag { margin-left: auto; font-family: 'Space Mono', monospace; font-size: 8px; color: #888; }
+
+/* PLATFORMS */
+.platforms { padding: 100px 48px; }
+.platforms-grid { display: grid; grid-template-columns: repeat(5,1fr); gap: 12px; margin-top: 48px; }
+.plat-card { background: var(--card); border: 0.5px solid var(--divider); border-radius: 10px; padding: 28px 22px; text-decoration: none; display: flex; flex-direction: column; gap: 14px; transition: all 0.18s; position: relative; overflow: hidden; }
+.plat-card::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(192,192,192,0.04) 0%, transparent 60%); opacity: 0; transition: opacity 0.2s; }
+.plat-card:hover { border-color: var(--silver); transform: translateY(-3px); box-shadow: 0 16px 48px rgba(0,0,0,0.4); }
+.plat-card:hover::before { opacity: 1; }
+.plat-icon { width: 40px; height: 40px; border-radius: 10px; background: var(--surface); display: flex; align-items: center; justify-content: center; }
+.plat-name { font-family: 'Barlow Condensed', sans-serif; font-size: 17px; font-weight: 700; color: var(--white); text-transform: uppercase; letter-spacing: 0.04em; }
+.plat-handle { font-family: 'Space Mono', monospace; font-size: 8.5px; color: var(--gray); margin-top: auto; }
+.plat-arrow { position: absolute; top: 22px; right: 22px; color: var(--divider); font-size: 14px; transition: color 0.2s; }
+.plat-card:hover .plat-arrow { color: var(--silver); }
+
+/* ABOUT */
+.about { background: var(--cream); padding: 100px 48px; }
+.about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; margin-top: 56px; }
+.about-text p { font-family: 'Lora', serif; font-size: 15px; color: #4A4A4A; line-height: 1.85; margin-bottom: 18px; }
+.brand-cards { display: flex; flex-direction: column; gap: 14px; }
+.brand-card { background: var(--ink); border-radius: 10px; padding: 28px; position: relative; overflow: hidden; }
+.brand-card::after { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--silver); }
+.brand-card-name { font-family: 'Barlow Condensed', sans-serif; font-size: 24px; font-weight: 800; color: var(--white); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px; }
+.brand-card-desc { font-family: 'Space Mono', monospace; font-size: 8.5px; color: var(--gray); line-height: 1.7; letter-spacing: 0.05em; }
+
+/* GUIDE CTA STRIP */
+.cta-strip { background: var(--white); padding: 48px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+.cta-strip-text .label { font-family: 'Space Mono', monospace; font-size: 9px; color: var(--gray); letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 8px; }
+.cta-strip-text .title { font-family: 'Barlow Condensed', sans-serif; font-size: 28px; font-weight: 800; color: var(--ink); text-transform: uppercase; letter-spacing: -0.01em; }
+
+@media (max-width: 860px) {
+  .hero { grid-template-columns: 1fr; padding: 100px 20px 60px; }
+  .hero-visual { display: none; }
+  .stats { grid-template-columns: repeat(2,1fr); }
+  .stat { padding: 20px; }
+  .guide-inner { grid-template-columns: 1fr; }
+  .platforms-grid { grid-template-columns: repeat(2,1fr); }
+  .about-grid { grid-template-columns: 1fr; }
+  .guide-preview, .platforms, .about { padding: 60px 20px; }
+  .cta-strip { flex-direction: column; padding: 32px 20px; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">
+    <svg width="30" height="34" viewBox="0 0 56 64">
+      <polygon points="28,4 52,18 28,32 4,18" fill="#C0C0C0"/>
+      <polygon points="52,18 52,42 28,56 28,32" fill="#444"/>
+      <polygon points="4,18 28,32 28,56 4,42" fill="#2A2A2A"/>
+    </svg>
+    <div class="nav-logo-text">
+      <span class="nav-logo-name">3DWB</span>
+      <span class="nav-logo-sub">Workbench</span>
+    </div>
+  </a>
+  <div class="nav-links">
+    <a href="index.html" class="active">Home</a>
+    <a href="guides.html">Guides</a>
+    <a href="#platforms">Platforms</a>
+    <a href="#about">About</a>
+    <a href="guides.html" class="nav-cta">Free Guide ↓</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-ghost">3DWB</div>
+  <div>
+    <div class="eyebrow anim-1">Designer · Maker · Entrepreneur</div>
+    <h1 class="hero-title anim-2">
+      Juri
+      <em>Pranjic.</em>
+    </h1>
+    <p class="hero-sub anim-3">3D printing entrepreneur based in Switzerland. Fan art, functional builds, enthusiast projects. Everything I learn goes straight back into the community.</p>
+    <div class="hero-actions anim-4">
+      <a href="guides.html" class="btn btn-white">Free Guide ↓</a>
+      <a href="#platforms" class="btn btn-outline">My Platforms →</a>
+    </div>
+  </div>
+  <div style="display:flex;justify-content:center;align-items:center;" class="anim-5">
+    <svg width="340" height="380" viewBox="0 0 280 320">
+      <polygon points="140,18 262,88 140,158 18,88" fill="#C0C0C0"/>
+      <line x1="18" y1="88" x2="262" y2="88" stroke="#A8A8A8" stroke-width="0.8" opacity="0.35"/>
+      <line x1="50" y1="71" x2="230" y2="71" stroke="#A8A8A8" stroke-width="0.8" opacity="0.22"/>
+      <line x1="82" y1="54" x2="198" y2="54" stroke="#A8A8A8" stroke-width="0.8" opacity="0.12"/>
+      <polygon points="262,88 262,218 140,288 140,158" fill="#282828"/>
+      <line x1="140" y1="172" x2="262" y2="102" stroke="#323232" stroke-width="1.2"/>
+      <line x1="140" y1="190" x2="262" y2="120" stroke="#323232" stroke-width="1.2"/>
+      <line x1="140" y1="208" x2="262" y2="138" stroke="#323232" stroke-width="1.2"/>
+      <line x1="140" y1="226" x2="262" y2="156" stroke="#323232" stroke-width="1.2"/>
+      <line x1="140" y1="244" x2="262" y2="174" stroke="#323232" stroke-width="1.2"/>
+      <line x1="140" y1="262" x2="262" y2="192" stroke="#323232" stroke-width="1.2"/>
+      <polygon points="18,88 140,158 140,288 18,218" fill="#181818"/>
+      <line x1="18" y1="102" x2="140" y2="172" stroke="#222" stroke-width="1.2"/>
+      <line x1="18" y1="120" x2="140" y2="190" stroke="#222" stroke-width="1.2"/>
+      <line x1="18" y1="138" x2="140" y2="208" stroke="#222" stroke-width="1.2"/>
+      <line x1="18" y1="156" x2="140" y2="226" stroke="#222" stroke-width="1.2"/>
+      <line x1="18" y1="174" x2="140" y2="244" stroke="#222" stroke-width="1.2"/>
+      <line x1="18" y1="192" x2="140" y2="262" stroke="#222" stroke-width="1.2"/>
+      <polyline points="140,18 262,88 262,218 140,288 18,218 18,88 140,18" fill="none" stroke="#3A3A3A" stroke-width="0.5"/>
+      <line x1="140" y1="158" x2="140" y2="288" stroke="#3A3A3A" stroke-width="0.5"/>
+      <line x1="140" y1="158" x2="262" y2="88" stroke="#3A3A3A" stroke-width="0.5"/>
+      <line x1="140" y1="158" x2="18" y2="88" stroke="#3A3A3A" stroke-width="0.5"/>
+      <text x="140" y="312" font-family="'Space Mono',monospace" font-size="11" fill="#3A3A3A" text-anchor="middle" letter-spacing="4">@3DWORKBENCH</text>
+    </svg>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stat"><div class="stat-val">85K+</div><div class="stat-label">Followers</div></div>
+  <div class="stat"><div class="stat-val">1,409</div><div class="stat-label">Published Prints</div></div>
+  <div class="stat"><div class="stat-val">2</div><div class="stat-label">Active Brands</div></div>
+  <div class="stat"><div class="stat-val">Switzerland</div><div class="stat-label">Based in</div></div>
+</div>
+
+<!-- GUIDE PREVIEW -->
+<section class="guide-preview">
+  <div class="guide-inner">
+    <div class="guide-cover">
+      <div class="guide-cover-num">8</div>
+      <div class="guide-cover-title">3D Printing<em>Hack Pack</em></div>
+      <div class="guide-cover-bottom">
+        <div class="guide-cover-tag">FREE GUIDE</div>
+        <div class="guide-cover-sub">@3dworkbench · 2026</div>
+      </div>
+    </div>
+    <div class="guide-content">
+      <div class="eyebrow dark">Latest Release</div>
+      <h2 class="display ink">Free.<br>Verified.<br>Useful.</h2>
+      <p class="body-text ink" style="margin: 20px 0 36px;">8 slicer settings drawn from the most-saved posts across 85,000 followers. No filler. Just the stuff that actually makes a difference to your prints.</p>
+      <div class="hack-list">
+        <div class="hack-row"><span class="hack-row-num">01</span><span class="hack-row-name">Z-Seam with Scarf Joint</span><span class="hack-row-tag">Bambu v1.9+</span></div>
+        <div class="hack-row"><span class="hack-row-num">02</span><span class="hack-row-name">Thread Tolerances</span><span class="hack-row-tag">All slicers</span></div>
+        <div class="hack-row"><span class="hack-row-num">03</span><span class="hack-row-name">Elephant Foot Fix</span><span class="hack-row-tag">All slicers</span></div>
+        <div class="hack-row"><span class="hack-row-num">04</span><span class="hack-row-name">Ironing for Smooth Surfaces</span><span class="hack-row-tag">All slicers</span></div>
+        <div class="hack-row"><span class="hack-row-num">05</span><span class="hack-row-name">Layer Orientation = Strength</span><span class="hack-row-tag">Design tip</span></div>
+        <div class="hack-row"><span class="hack-row-num">06</span><span class="hack-row-name">Fuzzy Skin for Texture</span><span class="hack-row-tag">All slicers</span></div>
+        <div class="hack-row"><span class="hack-row-num">07</span><span class="hack-row-name">Cold Pull Nozzle Cleaning</span><span class="hack-row-tag">Maintenance</span></div>
+        <div class="hack-row"><span class="hack-row-num">08</span><span class="hack-row-name">Stop Warping For Good</span><span class="hack-row-tag">All slicers</span></div>
+      </div>
+      <a href="guides.html" class="btn btn-dark">View All Guides →</a>
+    </div>
+  </div>
+</section>
+
+<!-- PLATFORMS -->
+<section class="platforms" id="platforms">
+  <div class="eyebrow">Find my work on</div>
+  <h2 class="display" style="margin-top:8px;">Platforms</h2>
+  <div class="platforms-grid">
+    <a href="https://makerworld.com/en/@3dwb" target="_blank" class="plat-card">
+      <div class="plat-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="#C0C0C0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div class="plat-name">MakerWorld</div>
+      <div class="plat-handle">@3dwb · Primary</div>
+      <span class="plat-arrow">↗</span>
+    </a>
+    <a href="https://www.patreon.com/3dworkbench" target="_blank" class="plat-card">
+      <div class="plat-icon"><svg width="20" height="20" viewBox="0 0 24 24"><circle cx="14.5" cy="9.5" r="6.5" fill="#C0C0C0"/><rect x="2" y="3" width="3.5" height="18" rx="1" fill="#888"/></svg></div>
+      <div class="plat-name">Patreon</div>
+      <div class="plat-handle">3dworkbench</div>
+      <span class="plat-arrow">↗</span>
+    </a>
+    <a href="https://cults3d.com/en/users/3DWORKBENCH" target="_blank" class="plat-card">
+      <div class="plat-icon"><svg width="20" height="20" viewBox="0 0 24 24"><polygon points="12,3 21,20 3,20" fill="none" stroke="#C0C0C0" stroke-width="1.5" stroke-linejoin="round"/></svg></div>
+      <div class="plat-name">Cults3D</div>
+      <div class="plat-handle">@3DWORKBENCH</div>
+      <span class="plat-arrow">↗</span>
+    </a>
+    <a href="https://thangs.com/designer/3dworkbench" target="_blank" class="plat-card">
+      <div class="plat-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="4" stroke="#C0C0C0" stroke-width="1.5"/><path d="M8 12h8M12 8v8" stroke="#C0C0C0" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+      <div class="plat-name">Thangs</div>
+      <div class="plat-handle">3dworkbench</div>
+      <span class="plat-arrow">↗</span>
+    </a>
+    <a href="https://www.instagram.com/3dworkbench" target="_blank" class="plat-card">
+      <div class="plat-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="6" stroke="#C0C0C0" stroke-width="1.5"/><circle cx="12" cy="12" r="4" stroke="#C0C0C0" stroke-width="1.5"/><circle cx="17.5" cy="6.5" r="1.2" fill="#C0C0C0"/></svg></div>
+      <div class="plat-name">Instagram</div>
+      <div class="plat-handle">@3dworkbench · 85K</div>
+      <span class="plat-arrow">↗</span>
+    </a>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="eyebrow dark">About</div>
+  <h2 class="display ink">Juri Pranjic.</h2>
+  <div class="about-grid">
+    <div class="about-text">
+      <p>3D printing entrepreneur based in Switzerland, known online as @3dworkbench. Over 85,000 followers and 1,400 published prints spanning fan art, functional objects, enthusiast builds and original designs.</p>
+      <p>From screen-accurate replicas to everyday household objects to custom automotive parts, the work covers a wide range. Everything shared here is tested under real conditions, built alongside a full-time job.</p>
+      <p>The goal has always been the same: share what works, skip what does not, and build a community worth being part of.</p>
+    </div>
+    <div>
+      <div style="font-family:'Space Mono',monospace;font-size:9px;color:var(--gray);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:16px;">Brands</div>
+      <div class="brand-cards">
+        <div class="brand-card">
+          <div class="brand-card-name">3dworkbench</div>
+          <div class="brand-card-desc">Game props · Replicas · Sci-fi models<br>Functional everyday objects · Fan art</div>
+        </div>
+        <div class="brand-card">
+          <div class="brand-card-name">FORMAstudios</div>
+          <div class="brand-card-desc">Minimalist home décor<br>Clean geometry · Premium finishes</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA STRIP -->
+<div class="cta-strip">
+  <div class="cta-strip-text">
+    <div class="label">Free Download</div>
+    <div class="title">3D Printing Hack Pack — 8 Verified Tricks</div>
+  </div>
+  <a href="guides.html" class="btn btn-dark">Get the Guide ↓</a>
+</div>
+
+<footer>
+  <div class="footer-copy">© 2026 Juri Pranjic · 3dworkbench.ch · Switzerland</div>
+  <div class="footer-links">
+    <a href="guides.html">Guides</a>
+    <a href="https://www.instagram.com/3dworkbench" target="_blank">Instagram</a>
+    <a href="https://makerworld.com/en/@3dwb" target="_blank">MakerWorld</a>
+    <a href="https://www.patreon.com/3dworkbench" target="_blank">Patreon</a>
+  </div>
+</footer>
+
+</body>
+</html>
