@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Juri Pranjic — 3DWORKBENCH</title>
+<meta name="description" content="3D printing entrepreneur based in Switzerland. Fan art, functional builds, enthusiast projects.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Barlow+Condensed:wght@400;600;700;800;900&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;font-size:16px}
+:root{
+  --black:#0D0D0D;--white:#FFFFFF;--gray:#767676;--gray-l:#ADADAD;
+  --border:#E8E8E8;--bg:#FAFAFA;--cream:#F5F2ED;
+  --mono:'Space Mono',monospace;
+  --disp:'Barlow Condensed',sans-serif;
+  --body:'Lora',Georgia,serif;
+}
+body{font-family:var(--body);background:var(--white);color:var(--black);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:99;background:rgba(255,255,255,0.93);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 48px;height:56px;display:flex;align-items:center;justify-content:space-between}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.nav-name{font-family:var(--mono);font-size:12px;font-weight:700;color:var(--black);letter-spacing:.04em}
+.nav-sub{font-family:var(--mono);font-size:8px;color:var(--gray);letter-spacing:.18em;text-transform:uppercase}
+.nav-links{display:flex;align-items:center;gap:32px}
+.nav-links a{font-family:var(--mono);font-size:10px;color:var(--gray);text-decoration:none;letter-spacing:.12em;text-transform:uppercase;transition:color .15s}
+.nav-links a:hover,.nav-links a.active{color:var(--black)}
+.nav-links a.active{border-bottom:1px solid var(--black);padding-bottom:1px}
+.nav-cta{background:var(--black)!important;color:var(--white)!important;padding:8px 16px!important;font-size:9px!important;border-radius:2px}
+
+/* HERO */
+.hero{padding:120px 48px 80px;min-height:88vh;display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:0;border-bottom:1px solid var(--border)}
+.hero-eyebrow{font-family:var(--mono);font-size:10px;color:var(--gray);letter-spacing:.2em;text-transform:uppercase;margin-bottom:28px}
+.hero-name{font-family:var(--disp);font-weight:900;font-size:clamp(68px,8.5vw,118px);line-height:.88;letter-spacing:-.03em;text-transform:uppercase}
+.hero-name .dim{color:var(--gray)}
+.hero-right{padding-left:72px;border-left:1px solid var(--border);display:flex;flex-direction:column;gap:28px}
+.hero-desc{font-family:var(--body);font-size:16px;color:var(--gray);line-height:1.8;max-width:360px}
+.hero-meta{display:flex;flex-direction:column;gap:9px}
+.hero-meta-row{display:flex;align-items:baseline;gap:14px}
+.ml{font-family:var(--mono);font-size:9px;color:var(--gray-l);letter-spacing:.14em;text-transform:uppercase;min-width:72px}
+.mv{font-family:var(--mono);font-size:10px;color:var(--black);letter-spacing:.04em}
+.hero-actions{display:flex;gap:10px}
+
+/* BTN */
+.btn{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;padding:11px 20px;border-radius:2px;transition:all .15s;cursor:pointer;border:none}
+.btn-black{background:var(--black);color:var(--white)}
+.btn-black:hover{background:#333}
+.btn-outline{border:1px solid var(--black);color:var(--black);background:transparent}
+.btn-outline:hover{background:var(--black);color:var(--white)}
+
+/* SECTION LABEL */
+.sl{font-family:var(--mono);font-size:9px;color:var(--gray);letter-spacing:.22em;text-transform:uppercase;margin-bottom:10px}
+.sh{font-family:var(--disp);font-size:34px;font-weight:800;text-transform:uppercase;letter-spacing:-.02em}
+
+/* WORK */
+.work{padding:80px 48px;border-bottom:1px solid var(--border)}
+.work-header{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:40px}
+.wl{font-family:var(--mono);font-size:9px;color:var(--gray);letter-spacing:.14em;text-transform:uppercase;text-decoration:none;transition:color .15s}
+.wl:hover{color:var(--black)}
+.work-grid{display:flex;gap:1px;background:var(--border);border:1px solid var(--border)}
+.work-card{background:var(--white);padding:24px 28px;display:flex;flex-direction:column;gap:10px;flex:1;min-width:0}
+.wc-num{font-family:var(--mono);font-size:9px;color:var(--gray-l)}
+.wc-title{font-family:var(--disp);font-size:18px;font-weight:700;text-transform:uppercase;letter-spacing:.02em;line-height:1.1}
+.wc-foot{font-family:var(--mono);font-size:9px;color:var(--gray);letter-spacing:.08em;text-transform:uppercase;margin-top:4px;display:flex;justify-content:space-between;align-items:center}
+.wc-tag{background:var(--bg);color:var(--gray);font-family:var(--mono);font-size:8px;font-weight:700;letter-spacing:.1em;padding:3px 7px;border:1px solid var(--border);border-radius:1px}
+
+/* GUIDE STRIP */
+.guide-strip{padding:72px 48px;border-bottom:1px solid var(--border);display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center;background:var(--cream)}
+.gs-title{font-family:var(--disp);font-size:48px;font-weight:900;text-transform:uppercase;letter-spacing:-.02em;line-height:.92;margin-bottom:16px}
+.gs-desc{font-family:var(--body);font-size:14px;color:var(--gray);line-height:1.75;margin-bottom:28px}
+.guide-list{display:flex;flex-direction:column;border-top:1px solid rgba(0,0,0,.1)}
+.gr{display:flex;align-items:center;gap:14px;padding:10px 0;border-bottom:1px solid rgba(0,0,0,.07);font-family:var(--mono);font-size:10px;color:var(--black);letter-spacing:.03em}
+.gr-n{color:var(--gray-l);min-width:20px}
+
+/* PLATFORMS */
+.platforms{padding:80px 48px;border-bottom:1px solid var(--border)}
+.platforms-header{margin-bottom:40px}
+.plat-list{display:flex;flex-direction:column}
+.pr{display:flex;align-items:center;padding:18px 0;border-bottom:1px solid var(--border);text-decoration:none;color:inherit;gap:20px}
+.pr:first-child{border-top:1px solid var(--border)}
+.pr:hover .pn{text-decoration:underline}
+.pr:hover .pa{transform:translateX(4px)}
+.p-num{font-family:var(--mono);font-size:10px;color:var(--gray-l);min-width:26px}
+.pn{font-family:var(--disp);font-size:26px;font-weight:700;text-transform:uppercase;letter-spacing:.02em;flex:1}
+.ph{font-family:var(--mono);font-size:10px;color:var(--gray)}
+.pt{font-family:var(--mono);font-size:9px;color:var(--gray-l);letter-spacing:.1em;text-transform:uppercase;min-width:140px;text-align:right}
+.pa{font-size:14px;color:var(--gray-l);transition:transform .15s}
+
+/* ABOUT */
+.about{padding:80px 48px;display:grid;grid-template-columns:1fr 2fr;gap:80px;align-items:start;border-bottom:1px solid var(--border)}
+.about-h{font-family:var(--disp);font-size:52px;font-weight:900;text-transform:uppercase;letter-spacing:-.025em;line-height:.88;position:sticky;top:72px}
+.about-content{display:flex;flex-direction:column;gap:18px}
+.about-content p{font-family:var(--body);font-size:15px;color:#444;line-height:1.85}
+.brand-list{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);border:1px solid var(--border);margin-top:12px}
+.bi{background:var(--white);padding:22px}
+.bi-n{font-family:var(--disp);font-size:17px;font-weight:800;text-transform:uppercase;letter-spacing:.04em;margin-bottom:6px}
+.bi-d{font-family:var(--mono);font-size:9px;color:var(--gray);line-height:1.7;letter-spacing:.05em}
+
+/* BRAND STRIP */
+.brand-strip{padding:48px 48px;border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:var(--bg)}
+.brand-strip-label{font-family:var(--mono);font-size:9px;color:var(--gray-l);letter-spacing:.22em;text-transform:uppercase;margin-bottom:28px;text-align:center}
+.brand-logos{display:flex;align-items:center;justify-content:center;gap:0;flex-wrap:wrap}
+.brand-logo-item{padding:14px 32px;border-right:1px solid var(--border);display:flex;align-items:center;justify-content:center;transition:background .2s}
+.brand-logo-item:last-child{border-right:none}
+.brand-logo-item:hover{background:var(--white)}
+.brand-logo-img{height:28px;width:auto;max-width:110px;object-fit:contain;filter:grayscale(1) opacity(0.45);mix-blend-mode:multiply;transition:filter .2s}
+.brand-logo-img.invert{filter:invert(1) grayscale(1) opacity(0.45)}
+.brand-logo-item:hover .brand-logo-img{filter:grayscale(0) opacity(1)}
+.brand-logo-item:hover .brand-logo-img.invert{filter:invert(0) grayscale(0) opacity(1)}
+.brand-more{font-family:var(--mono);font-size:9px;font-weight:700;color:var(--gray-l);letter-spacing:.14em;text-transform:uppercase;white-space:nowrap}
+
+/* FOOTER */
+footer{padding:26px 48px;display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--border)}
+.fc{font-family:var(--mono);font-size:9px;color:var(--gray);letter-spacing:.1em}
+.fl{display:flex;gap:24px}
+.fl a{font-family:var(--mono);font-size:9px;color:var(--gray);text-decoration:none;letter-spacing:.1em;transition:color .15s}
+.fl a:hover{color:var(--black)}
+
+/* ANIM */
+@keyframes up{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+.u1{animation:up .5s .05s both}.u2{animation:up .5s .12s both}
+.u3{animation:up .5s .2s both}.u4{animation:up .5s .28s both}
+
+/* MOBILE */
+@media(max-width:900px){
+  nav{padding:0 20px}
+  .nav-links{display:none}
+  .hero{grid-template-columns:1fr;padding:90px 20px 60px;min-height:auto;gap:40px}
+  .hero-right{padding-left:0;border-left:none;border-top:1px solid var(--border);padding-top:32px}
+  .work{padding:60px 20px}
+  .work-grid{flex-direction:column}
+  .guide-strip{grid-template-columns:1fr;padding:60px 20px;gap:40px}
+  .platforms{padding:60px 20px}
+  .about{grid-template-columns:1fr;padding:60px 20px;gap:36px}
+  .about-h{position:static;font-size:42px}
+  .brand-list{grid-template-columns:1fr}
+  .brand-strip{padding:36px 20px}
+  .brand-logos{gap:0}
+  .brand-logo-item{padding:10px 16px}
+  .brand-wordmark{font-size:10px}
+  footer{flex-direction:column;gap:14px;padding:22px 20px;text-align:center}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">
+    <svg width="22" height="26" viewBox="0 0 56 64"><polygon points="28,4 52,18 28,32 4,18" fill="#0D0D0D"/><polygon points="52,18 52,42 28,56 28,32" fill="#767676"/><polygon points="4,18 28,32 28,56 4,42" fill="#ADADAD"/></svg>
+    <div><div class="nav-name">3DWB</div><div class="nav-sub">Workbench</div></div>
+  </a>
+  <div class="nav-links">
+    <a href="index.html" class="active">Home</a>
+    <a href="guides.html">Guides</a>
+    <a href="#platforms">Platforms</a>
+    <a href="#about">About</a>
+    <a href="guides.html" class="nav-cta btn">Free Guide ↓</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div>
+    <div class="hero-eyebrow u1">Juri Pranjic · @3dworkbench</div>
+    <h1 class="hero-name u2">3D<br>Work<br><span class="dim">bench.</span></h1>
+  </div>
+  <div class="hero-right u3">
+    <p class="hero-desc">3D printing entrepreneur based in Switzerland. Fan art, functional builds, enthusiast projects. Everything I learn goes straight back into the community.</p>
+    <div class="hero-meta">
+      <div class="hero-meta-row"><span class="ml">Based in</span><span class="mv">Switzerland</span></div>
+      <div class="hero-meta-row"><span class="ml">Focus</span><span class="mv">FDM · Fan Art · Functional</span></div>
+      <div class="hero-meta-row"><span class="ml">Brands</span><span class="mv">3dworkbench · FORMAstudios</span></div>
+      <div class="hero-meta-row"><span class="ml">Platforms</span><span class="mv">MakerWorld · Patreon · Cults3D</span></div>
+    </div>
+    <div class="hero-actions u4">
+      <a href="guides.html" class="btn btn-black">Free Guide ↓</a>
+      <a href="#platforms" class="btn btn-outline">Platforms →</a>
+    </div>
+  </div>
+</section>
+
+<section class="work">
+  <div class="work-header">
+    <div><div class="sl">Selected Work</div><div class="sh">Featured Prints</div></div>
+    <a href="https://makerworld.com/en/@3dwb" target="_blank" class="wl">All models on MakerWorld →</a>
+  </div>
+  <div class="work-grid">
+    <div class="work-card">
+      <div class="wc-num">001</div>
+      <div class="wc-title">Kitchen Roll Holder</div>
+      <div class="wc-foot"><span>Wall mount · Minimal</span><span class="wc-tag">MakerWorld</span></div>
+    </div>
+    <div class="work-card">
+      <div class="wc-num">002</div>
+      <div class="wc-title">Radio Flyer Custom Wheels</div>
+      <div class="wc-foot"><span>Fan art · Custom build</span><span class="wc-tag">MakerWorld</span></div>
+    </div>
+    <div class="work-card">
+      <div class="wc-num">003</div>
+      <div class="wc-title">Cable Management Box</div>
+      <div class="wc-foot"><span>Functional · Home</span><span class="wc-tag">MakerWorld</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="guide-strip">
+  <div>
+    <div class="sl" style="margin-bottom:12px;">Free Download</div>
+    <h2 class="gs-title">3D Printing<br>Hack Pack</h2>
+    <p class="gs-desc">8 verified slicer tricks drawn from the most-saved posts. No filler, just settings that make a real difference.</p>
+    <a href="guides.html" class="btn btn-black">Download Free →</a>
+  </div>
+  <div class="guide-list">
+    <div class="gr"><span class="gr-n">01</span>Z-Seam with Scarf Joint</div>
+    <div class="gr"><span class="gr-n">02</span>Thread Tolerances</div>
+    <div class="gr"><span class="gr-n">03</span>Elephant Foot Fix</div>
+    <div class="gr"><span class="gr-n">04</span>Ironing for Smooth Surfaces</div>
+    <div class="gr"><span class="gr-n">05</span>Layer Orientation = Strength</div>
+    <div class="gr"><span class="gr-n">06</span>Fuzzy Skin for Texture</div>
+    <div class="gr"><span class="gr-n">07</span>Cold Pull Nozzle Cleaning</div>
+    <div class="gr"><span class="gr-n">08</span>Stop Warping For Good</div>
+  </div>
+</section>
+
+<section class="platforms" id="platforms">
+  <div class="platforms-header"><div class="sl">Find my work on</div><div class="sh" style="margin-top:8px;">Platforms</div></div>
+  <div class="plat-list">
+    <a href="https://makerworld.com/en/@3dwb" target="_blank" class="pr"><span class="p-num">01</span><span class="pn">MakerWorld</span><span class="ph">@3dwb</span><span class="pt">Models · Primary</span><span class="pa">→</span></a>
+    <a href="https://www.patreon.com/3dworkbench" target="_blank" class="pr"><span class="p-num">02</span><span class="pn">Patreon</span><span class="ph">3dworkbench</span><span class="pt">Members</span><span class="pa">→</span></a>
+    <a href="https://cults3d.com/en/users/3DWORKBENCH" target="_blank" class="pr"><span class="p-num">03</span><span class="pn">Cults3D</span><span class="ph">@3DWORKBENCH</span><span class="pt">Models</span><span class="pa">→</span></a>
+    <a href="https://thangs.com/designer/3dworkbench" target="_blank" class="pr"><span class="p-num">04</span><span class="pn">Thangs</span><span class="ph">3dworkbench</span><span class="pt">Models</span><span class="pa">→</span></a>
+    <a href="https://www.instagram.com/3dworkbench" target="_blank" class="pr"><span class="p-num">05</span><span class="pn">Instagram</span><span class="ph">@3dworkbench</span><span class="pt">Community · 88K+</span><span class="pa">→</span></a>
+  </div>
+</section>
+
+<section class="about" id="about">
+  <div><div class="sl" style="margin-bottom:14px;">About</div><h2 class="about-h">Juri<br>Pranjic.</h2></div>
+  <div class="about-content">
+    <p>3D printing entrepreneur based in Switzerland, known online as @3dworkbench. Fan art, functional objects, enthusiast builds and original designs — shared with a community of over 88,000 makers.</p>
+    <p>From screen-accurate replicas to everyday household objects to custom automotive parts, the work covers a wide range. Everything shared is tested under real conditions, built alongside a full-time job.</p>
+    <p>The goal has always been the same: share what works and build a community worth being part of.</p>
+    <div class="brand-list">
+      <div class="bi"><div class="bi-n">3dworkbench</div><div class="bi-d">Game props · Replicas<br>Sci-fi models · Fan art<br>Functional everyday objects</div></div>
+      <div class="bi"><div class="bi-n">FORMAstudios</div><div class="bi-d">Minimalist home décor<br>Clean geometry<br>Premium finishes</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- BRAND STRIP -->
+<div class="brand-strip">
+  <div class="brand-strip-label">Brand Collaborations</div>
+  <div class="brand-logos">
+    <div class="brand-logo-item"><span class="brand-wordmark">Bambu Lab</span></div>
+    <div class="brand-logo-item"><span class="brand-wordmark">Prusa</span></div>
+    <div class="brand-logo-item"><span class="brand-wordmark">Formlabs</span></div>
+    <div class="brand-logo-item"><span class="brand-wordmark">Creality</span></div>
+    <div class="brand-logo-item"><span class="brand-wordmark">Anycubic</span></div>
+    <div class="brand-logo-item"><span class="brand-wordmark">Ultimaker</span></div>
+    <div class="brand-logo-item"><span class="brand-wordmark">BCN3D</span></div>
+    <div class="brand-logo-item"><span class="brand-wordmark">& more</span></div>
+  </div>
+</div>
+
+<footer>
+  <div class="fc">© 2026 Juri Pranjic · 3dworkbench.ch · Switzerland</div>
+  <div class="fl">
+    <a href="guides.html">Guides</a>
+    <a href="https://www.instagram.com/3dworkbench" target="_blank">Instagram</a>
+    <a href="https://makerworld.com/en/@3dwb" target="_blank">MakerWorld</a>
+    <a href="https://www.patreon.com/3dworkbench" target="_blank">Patreon</a>
+  </div>
+</footer>
+
+</body>
+</html>
