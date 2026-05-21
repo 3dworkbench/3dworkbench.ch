@@ -102,10 +102,14 @@ nav{position:fixed;top:0;left:0;right:0;z-index:99;background:rgba(255,255,255,0
 .brand-strip{padding:48px 48px;border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:var(--bg)}
 .brand-strip-label{font-family:var(--mono);font-size:9px;color:var(--gray-l);letter-spacing:.22em;text-transform:uppercase;margin-bottom:28px;text-align:center}
 .brand-logos{display:flex;align-items:center;justify-content:center;gap:0;flex-wrap:wrap}
-.brand-logo-item{padding:12px 28px;border-right:1px solid var(--border);display:flex;align-items:center;justify-content:center}
+.brand-logo-item{padding:14px 32px;border-right:1px solid var(--border);display:flex;align-items:center;justify-content:center;transition:background .2s}
 .brand-logo-item:last-child{border-right:none}
-.brand-wordmark{font-family:var(--mono);font-size:11px;font-weight:700;color:var(--gray-l);letter-spacing:.14em;text-transform:uppercase;transition:color .2s;white-space:nowrap}
-.brand-logo-item:hover .brand-wordmark{color:var(--black)}
+.brand-logo-item:hover{background:var(--white)}
+.brand-logo-img{height:28px;width:auto;max-width:110px;object-fit:contain;filter:grayscale(1) opacity(0.45);mix-blend-mode:multiply;transition:filter .2s}
+.brand-logo-img.invert{filter:invert(1) grayscale(1) opacity(0.45)}
+.brand-logo-item:hover .brand-logo-img{filter:grayscale(0) opacity(1)}
+.brand-logo-item:hover .brand-logo-img.invert{filter:invert(0) grayscale(0) opacity(1)}
+.brand-more{font-family:var(--mono);font-size:9px;font-weight:700;color:var(--gray-l);letter-spacing:.14em;text-transform:uppercase;white-space:nowrap}
 
 /* FOOTER */
 footer{padding:26px 48px;display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--border)}
