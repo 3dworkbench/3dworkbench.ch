@@ -98,6 +98,15 @@ nav{position:fixed;top:0;left:0;right:0;z-index:99;background:rgba(255,255,255,0
 .bi-n{font-family:var(--disp);font-size:17px;font-weight:800;text-transform:uppercase;letter-spacing:.04em;margin-bottom:6px}
 .bi-d{font-family:var(--mono);font-size:9px;color:var(--gray);line-height:1.7;letter-spacing:.05em}
 
+/* BRAND STRIP */
+.brand-strip{padding:48px 48px;border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:var(--bg)}
+.brand-strip-label{font-family:var(--mono);font-size:9px;color:var(--gray-l);letter-spacing:.22em;text-transform:uppercase;margin-bottom:28px;text-align:center}
+.brand-logos{display:flex;align-items:center;justify-content:center;gap:0;flex-wrap:wrap}
+.brand-logo-item{padding:12px 28px;border-right:1px solid var(--border);display:flex;align-items:center;justify-content:center}
+.brand-logo-item:last-child{border-right:none}
+.brand-wordmark{font-family:var(--mono);font-size:11px;font-weight:700;color:var(--gray-l);letter-spacing:.14em;text-transform:uppercase;transition:color .2s;white-space:nowrap}
+.brand-logo-item:hover .brand-wordmark{color:var(--black)}
+
 /* FOOTER */
 footer{padding:26px 48px;display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--border)}
 .fc{font-family:var(--mono);font-size:9px;color:var(--gray);letter-spacing:.1em}
@@ -123,6 +132,10 @@ footer{padding:26px 48px;display:flex;align-items:center;justify-content:space-b
   .about{grid-template-columns:1fr;padding:60px 20px;gap:36px}
   .about-h{position:static;font-size:42px}
   .brand-list{grid-template-columns:1fr}
+  .brand-strip{padding:36px 20px}
+  .brand-logos{gap:0}
+  .brand-logo-item{padding:10px 16px}
+  .brand-wordmark{font-size:10px}
   footer{flex-direction:column;gap:14px;padding:22px 20px;text-align:center}
 }
 </style>
@@ -220,15 +233,30 @@ footer{padding:26px 48px;display:flex;align-items:center;justify-content:space-b
 <section class="about" id="about">
   <div><div class="sl" style="margin-bottom:14px;">About</div><h2 class="about-h">Juri<br>Pranjic.</h2></div>
   <div class="about-content">
-    <p>3D printing entrepreneur based in Switzerland, known online as @3dworkbench. Over 1,400 published prints spanning fan art, functional objects, enthusiast builds and original designs.</p>
+    <p>3D printing entrepreneur based in Switzerland, known online as @3dworkbench. Fan art, functional objects, enthusiast builds and original designs — shared with a community of over 88,000 makers.</p>
     <p>From screen-accurate replicas to everyday household objects to custom automotive parts, the work covers a wide range. Everything shared is tested under real conditions, built alongside a full-time job.</p>
-    <p>The goal has always been the same: share what works, skip what does not, and build a community worth being part of.</p>
+    <p>The goal has always been the same: share what works and build a community worth being part of.</p>
     <div class="brand-list">
       <div class="bi"><div class="bi-n">3dworkbench</div><div class="bi-d">Game props · Replicas<br>Sci-fi models · Fan art<br>Functional everyday objects</div></div>
       <div class="bi"><div class="bi-n">FORMAstudios</div><div class="bi-d">Minimalist home décor<br>Clean geometry<br>Premium finishes</div></div>
     </div>
   </div>
 </section>
+
+<!-- BRAND STRIP -->
+<div class="brand-strip">
+  <div class="brand-strip-label">Brand Collaborations</div>
+  <div class="brand-logos">
+    <div class="brand-logo-item"><span class="brand-wordmark">Bambu Lab</span></div>
+    <div class="brand-logo-item"><span class="brand-wordmark">Prusa</span></div>
+    <div class="brand-logo-item"><span class="brand-wordmark">Formlabs</span></div>
+    <div class="brand-logo-item"><span class="brand-wordmark">Creality</span></div>
+    <div class="brand-logo-item"><span class="brand-wordmark">Anycubic</span></div>
+    <div class="brand-logo-item"><span class="brand-wordmark">Ultimaker</span></div>
+    <div class="brand-logo-item"><span class="brand-wordmark">BCN3D</span></div>
+    <div class="brand-logo-item"><span class="brand-wordmark">& more</span></div>
+  </div>
+</div>
 
 <footer>
   <div class="fc">© 2026 Juri Pranjic · 3dworkbench.ch · Switzerland</div>
