@@ -12,3 +12,5 @@
 @media(min-width:900px){.choice-models h2{font-size:clamp(29px,3.45vw,47px);max-width:none;white-space:nowrap}}
 .spam-trap{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}input[type=file]{font-size:12px;line-height:1.5}input[type=file]::file-selector-button{font:inherit;font-weight:700;border:1px solid #cbd0c6;background:#e9e9e2;border-radius:3px;padding:7px 10px;margin-right:12px;cursor:pointer}.thanks-page{min-height:60vh;padding-top:clamp(80px,12vw,150px);padding-bottom:100px}.thanks-page h1{font-size:clamp(45px,6vw,76px);letter-spacing:-.075em;line-height:1;margin:20px 0}.thanks-page p{font-size:17px;line-height:1.5;color:var(--muted);max-width:510px;margin:0 0 30px}
 .form-status{background:#f9e5dc;color:#782f1d;padding:12px 14px;border-left:3px solid #b6442b;border-radius:3px;font-size:12px;line-height:1.5;margin:15px 0 0}.form-status[hidden]{display:none}.button:disabled{opacity:.65;cursor:wait;transform:none}
+
+@media(max-width:680px){.choice-hero .headline-second{display:block}}@media(max-width:360px){.choice-hero h1{font-size:42px}}
