@@ -22,9 +22,15 @@
   document.querySelector('[data-close-enquiry]').addEventListener('click', () => dialog.close());
   dialog.addEventListener('click', event => { if (event.target === dialog) dialog.close(); });
   form.addEventListener('submit', async event => {
-    event.preventDefault();
     validateAttachment();
-    if (!form.reportValidity()) return;
+    if (!form.reportValidity()) {
+      event.preventDefault();
+      return;
+    }
+    // FormSubmit's AJAX endpoint accepts the fields but omits file attachments.
+    // Send multipart forms through its standard endpoint instead.
+    if (attachment.files.length) return;
+    event.preventDefault();
     status.hidden = true;
     submit.disabled = true;
     submit.textContent = form.dataset.sending;
@@ -47,3 +53,4 @@
     }
   });
 })();
+
